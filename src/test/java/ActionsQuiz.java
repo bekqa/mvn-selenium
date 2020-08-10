@@ -4,13 +4,13 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class ActionsQuiz {
     WebDriver driver;
@@ -51,5 +51,36 @@ public class ActionsQuiz {
 
         element = driver.findElement(By.xpath("//h5[contains(text(),'name: user1')]"));
         assertTrue("name: user2",element.isDisplayed());//string must be exactly as in element
+    }
+
+    @Test
+    public void rightClick()
+    {
+        driver.navigate().to("https://the-internet.herokuapp.com/context_menu");
+        element = driver.findElement(By.id("hot-spot"));
+        Actions actions = new Actions(driver);
+        actions.contextClick(element).perform();
+        driver.switchTo().alert().accept();
+    }
+
+    @Test
+    public void keyPresses() {
+        driver.navigate().to("https://the-internet.herokuapp.com/key_presses");
+        element = driver.findElement(By.id("target"));
+        element.click();
+
+        Actions actions = new Actions(driver);
+        actions.sendKeys(Keys.ARROW_RIGHT).perform();
+        element = driver.findElement(By.id("result"));
+        assertEquals("Clicked right arrow key","You entered: RIGHT", element.getText());
+    }
+    @Test
+    public void getCSSValue() {
+        //Get the href attribute from the Clickable Icon element
+        driver.navigate().to("https://ultimateqa.com/simple-html-elements-for-automation/");
+        element = driver.findElement(By.linkText("Clickable Icon"));
+        String link = element.getAttribute("href");
+        assertEquals("https://ultimateqa.com/link-success/", link);
+        assertEquals("padding-box", element.getCssValue("background-origin"));
     }
 }
