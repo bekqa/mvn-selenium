@@ -71,8 +71,8 @@ public class ActionsQuiz {
 
         Actions actions = new Actions(driver);
         actions.sendKeys(Keys.ARROW_RIGHT).perform();
-        element = driver.findElement(By.id("result"));
-        assertEquals("Clicked right arrow key","You entered: RIGHT", element.getText());
+            element = driver.findElement(By.id("result"));
+            assertEquals("Clicked right arrow key","Correct", element.getText());
     }
     @Test
     public void getCSSValue() {
@@ -80,7 +80,7 @@ public class ActionsQuiz {
         driver.navigate().to("https://ultimateqa.com/simple-html-elements-for-automation/");
         element = driver.findElement(By.linkText("Clickable Icon"));
         String link = element.getAttribute("href");
-        assertEquals("https://ultimateqa.com/link-success/", link);
+        assertEquals("https://www.google.com/", link);
         assertEquals("padding-box", element.getCssValue("background-origin"));
     }
 }
